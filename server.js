@@ -1,5 +1,5 @@
 const express = require('express');
-const { execSync } = require("child_process");
+const { execSync, exec } = require("child_process");
 const app = express();
 const port = process.env.PORT || 8088;
 
@@ -19,9 +19,8 @@ app.post('/hook', (req, res) => {
     });
     execSync('git clone '+git_url+' /root/'+git_name+'/', {
         stdio: [0, 1, 2],
-        cwd: path.resolve(__dirname, ''),
       })
-    execSync('node /root/'+git_name+'/server.js', function (error, stdout, stderr) {
+    exec('node /root/'+git_name+'/server.js', function (error, stdout, stderr) {
         if(error) console.log(error);
     });
     console.log('Cloned!');
