@@ -11,7 +11,7 @@ app.post('/hook', (req, res) => {
     res.send('Got!');
     var git_name = req.body.repository.name;
     var git_url = req.body.repository.clone_url;
-    exec('pkill -f "node '+git_name+'/server.js"; rm -r ~/'+git_name+'; git clone '+git_url+'; node '+git_name+'/server.js;', (error, stdout, stderr) => {
+    exec('pkill -f "node '+git_name+'/server.js"; rm -r /root/'+git_name+'; git clone '+git_url+'; node '+git_name+'/server.js /root/;', (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
