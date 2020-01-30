@@ -1,4 +1,5 @@
 const express = require('express');
+const { exec } = require("child_process");
 const app = express();
 const port = process.env.PORT || 8088;
 
@@ -8,5 +9,8 @@ app.listen(port, () => console.log(`Running on port ${port}`));
 
 app.post('/hook', (req, res) => {
     res.send('Got!');
-    console.log(req.body.repository.clone_url);
+    var git_name = req.body.repository.name;
+    var git_url = req.body.repository.clone_url;
+    exec('pkill -f "node '+git_name+'/server.js"; rm -r ~/'+git_name+'; git clone '+git_url+'; node '+git_name+'/server.js;');
+    console.log('Cloned!');
 });
