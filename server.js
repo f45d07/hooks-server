@@ -7,5 +7,4 @@ app.listen(port, () => console.log(`Running on port ${port}`));
 app.post('/hook', (req, res) => {
     res.send('Got!');
     console.log(req);
-    console.log(res);
 });
