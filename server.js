@@ -1,5 +1,6 @@
 const express = require('express');
 const { execSync } = require("child_process");
+const shell = require('shelljs')
 const app = express();
 const port = process.env.PORT || 8088;
 
@@ -17,9 +18,7 @@ app.post('/hook', (req, res) => {
     execSync('rm -rf /root/'+git_name, function (error, stdout, stderr) {
         if(error) console.log(error);
     });
-    execSync('git clone '+git_url+' /root/'+git_name, function (error, stdout, stderr) {
-        if(error) console.log(error);
-    });
+    shell.exec('git clone '+git_url+' /root/'+git_name+'/');
     execSync('node /root/'+git_name+'/server.js', function (error, stdout, stderr) {
         if(error) console.log(error);
     });
